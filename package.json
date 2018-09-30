@@ -8,5 +8,10 @@
     "start": "node index"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dankmemes": "^1.0.0",
+    "discord.js": "^11.4.2",
+    "dotenv": "^6.0.0"
+  }
 }
