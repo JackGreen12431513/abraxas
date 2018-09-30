@@ -72,8 +72,9 @@ client.on('message', message => {
         case "links":
         var embed = new discord.RichEmbed()
         .setAuthor("Abraxas Links:", client.user.avatarURL)
-        .addField("<:github:495625098720444426> GitHub:", "null")
+        .addField("<:github:495625098720444426> GitHub:", "https://github.com/JackGreen12431513/abraxas")
         .addField("<:twitter:495626854615482383> Twitter:", "https://twitter.com/Abraxas56831878")
+        .addField("<:discord:496008069134942208> Discord:", "https://discord.gg/2D22ERT")
         .setColor(embColor)
         message.channel.send(embed)
         break;
