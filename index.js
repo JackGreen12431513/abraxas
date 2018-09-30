@@ -142,3 +142,8 @@ function write(type) {
     }
 }
 
+/*
+git add . && git commit -m "Title"
+git push origin master
+git push heroku master
+*/
