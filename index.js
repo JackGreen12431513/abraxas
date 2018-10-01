@@ -9,6 +9,7 @@ const prefix = "$$";
 const embColor = 0x3C2D7F;
 
 const userData = JSON.parse(fs.readFileSync('./Data/userData.json', 'utf8'));
+const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 client.on('ready', () => {
     client.user.setActivity("on " + client.guilds.size + " guilds | $$help")
@@ -128,12 +129,37 @@ client.on('message', message => {
             message.channel.send("Please input a vaild report!")
         }
         break;
+
+        case "tellpurge":
+        if(message.author.id !== config.OwnerID) return;
+        message.channel.bulkDelete(100)
+        break;
+
+        case "eval":
+        if(message.author.id !== config.OwnerID) return;
+        try {
+          const code = message.content.replace(prefix + "eval", "").replace(" ", "");
+          let evaled = eval(code);
+    
+          if (typeof evaled !== "string")
+            evaled = require("util").inspect(evaled);
+    
+          //message.channel.send(clean(evaled), {code:"xl"});
+          var embed = new discord.RichEmbed()
+          .setColor(embColor)
+          .setTitle("Abraxas Eval!")
+          .addField('Input:', `\`\`\`js\n${code}\`\`\``)
+          .addField('Output:', `\`\`\`js\n${clean(evaled)}\`\`\``)
+          message.channel.send(embed)
+        } catch (err) {
+          message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+        }
+        break;
         
     }
 })
 
 client.login(process.env.twigSniff);
-
 
 function write(type) {
     if(type === 1) {
@@ -142,6 +168,13 @@ function write(type) {
 
     }
 }
+
+function clean(text) {
+    if (typeof(text) === "string")
+      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+        return text;
+  }
 
 const http = require('http')
 var server = http.createServer();
