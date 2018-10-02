@@ -176,6 +176,8 @@ function clean(text) {
         return text;
   }
 
+  var port = process.env.PORT || 5000;
+
 const http = require('http')
 var server = http.createServer();
 server.listen(process.env.PORT || 5000)
